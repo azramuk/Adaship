@@ -22,9 +22,11 @@ def menu(): #call this first
       adaship.Adaship()
       adaship.playerVsPlayer()
     elif (choice == 3):
-      print("one player salvo")
+      adaship.Adaship()
+      adaship.salvoPlayerVsCom()
     elif (choice == 4):
-      print("two player salvo")
+      adaship.Adaship()
+      adaship.salvoPlayerVsPlayer()
     elif (choice == 0):
       validChoice = True
       print("Exiting... goodbye!")

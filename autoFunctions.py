@@ -22,11 +22,4 @@ def autoLaunch(player, computer): # change target board
           if (computer.boats[i][3] == computer.boats[i][2]):
             print("SHIP SUNK\n")
             computer.boats[i][4] = 2
-    gameover = True
-    for i in range(len(computer.boats)):
-      if (computer.boats[i][4] != 2):
-        gameover = False
-    if (gameover):
-      print("\nPlayer wins\n")
-    else:
-      input("Press enter to continue to next players turn")
+    input("Press enter to continue")

@@ -35,20 +35,12 @@ def manualLaunch(player, computer):
         if (computer.boats[i][3] == computer.boats[i][2]):
           print("SHIP SUNK\n")
           computer.boats[i][4] = 2
-  gameover = True
-  for i in range(1, len(computer.boats)):
-    if (computer.boats[i][4] != 2):
-      gameover = False
-  if (gameover):
-    print("Player wins")
-    state = True
-  else:
-    input("Press enter to continue to next players turn")
-    state = True
+  input("Press enter to continue")
+
   #get user coords, check target board 0, if all valid check opponent game board - if not 0 increment hit else increment miss
   #using ID add one to damage in com boat info, check if damage = length, if yes change status to sunk and print boat sunk
   #check if all staus is sunk, if yes say they won else 1 to continue or 0 to quit
-  player.getBoard("target")
+  #player.getBoard("target")
   #manual
 
 def userTurn(player, computer): # change target board
