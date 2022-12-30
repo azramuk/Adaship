@@ -1,5 +1,9 @@
 # Adaship
 
+To run:
+
+Head to https://replit.com/github to import a repository. Using https://github.com/azramuk/Adaship then just run it using console
+
 1. Challenge Outline – 10%
 a. Summary and review of the problem, overall proposed solution.
 

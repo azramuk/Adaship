@@ -4,7 +4,7 @@ import os
 
 def menu(): #call this first
   validChoice = False
-  print ("Menu: \n 1. Player vs Computer \n 2. Quit \n\nEnter choice: ")
+  print ("Menu: \n 1. Player vs Computer \n 2. Two player game \n 3. Player vs Computer (Salvo version) \n 4. Two player game (Salvo version) \n 0. Quit \n\nEnter choice: ")
   while (validChoice == False):
     #choice = input()
     try:
@@ -16,7 +16,16 @@ def menu(): #call this first
     if (choice == 1):
       validChoice = True
       adaship.Adaship()
+      adaship.playerVsCom()
     elif (choice == 2):
+      validChoice = True
+      adaship.Adaship()
+      adaship.playerVsPlayer()
+    elif (choice == 3):
+      print("one player salvo")
+    elif (choice == 4):
+      print("two player salvo")
+    elif (choice == 0):
       validChoice = True
       print("Exiting... goodbye!")
       sys.exit()
