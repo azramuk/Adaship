@@ -1,11 +1,16 @@
-import autoFunctions, computerConfig, computerLogic, menu, placeShips, playerConfig, playGame, readConfigFile, validation, adaship
+import Backend.GameConfig.adaship as adaship
+import Backend.GameConfig.readConfigFile as readConfigFile
+import Backend.GameLogic.validation as validation
+import Backend.GameLogic.boatInfo as boatInfo
+
 
 class GameConfig():
   def __init__(self):
     self.board = []
     self.boats = []
 
-  def ownBoardSize():
+  
+  def ownBoardSize(): # function to get user input for board size
     num = False
     while (not num):
       width = input("Enter width between 5 and 80: ")
@@ -22,12 +27,12 @@ class GameConfig():
       except ValueError:
         print("\nInput is not an integer\n")
         continue
+
   
-  def createBoard(): #4 boards need to be created
-    width, height = readConfigFile.ConfigFile.getDimensions(adaship.adashipp)
+  def createBoard(): # can be called multiple times to create seperate boards
+    width, height = readConfigFile.ConfigFile.getDimensions(adaship.adaship)
   
-    # board = [[0]*height]*width - wasn't working bc copies so couldn't individually change 
-    if validation.Validation.boardSize(width, height): #call validation
+    if validation.Validation.boardSize(width, height): # validation check that board size is in range of 5 - 80
       
       board = []
       for i in range(height):
@@ -35,13 +40,14 @@ class GameConfig():
         for i in range(width):
           row.append('0')
         board.append(row)
-     
+
+      # create column letters
       ascii = 65
       columns = [''] # start with empty space for the numbers column
-      loop = 0
-      # create column names
+      loop = 0 # counter to know whether the columns have reached the end of the alphabet in which case it will become AA, AB.. etc
+      
       for i in range(width):
-        if (i % 25 == 0 and i != 0):
+        if (i % 25 == 0 and i != 0): # checks whether index is divisible by 25 with no remainders to check whether it has done a full alphabet iteration
           loop += 1
           ascii = 65
           
@@ -63,28 +69,18 @@ class GameConfig():
       for i in range(height):
         board[i].insert(0, num)
         num += 1
-      
-      # print (columns)
+     
       board.insert(0, columns)
       
-
-      
       return board
-      #print (board)
-      #print(np.matrix(board))
 
+  
   def boatsArray():
-    NOT_DEPLOYED = 0;
-    boats = readConfigFile.ConfigFile.getBoats(adaship.adashipp)
+    boats = readConfigFile.ConfigFile.getBoats(adaship.adaship)
+    boatsList = []
     
     for i in range(len(boats)):
-      boats[i].insert(0, boats[i][0][0])
-      boats[i].append(0)
-      boats[i].append(NOT_DEPLOYED)
-    boats.insert(0, ["ID", "Name", "Length", "Damage", "Status"])
-    # test = boats.copy()
-    # print(boats)
-    # print(test)
-    return boats
-    #print(boats)
-    #create 2D array with first letter and length
+      boatsList.append(boatInfo.Boat(boats[i][0][0],boats[i][0],boats[i][1])) # array of boat objects
+      
+    return boatsList
+
