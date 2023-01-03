@@ -3,15 +3,15 @@ import UI.headers as headers
 
 class DisplayInfo():
 
-  def getColour(cell, withwhite):
+  def getColour(cell, text):
     if cell == "0":
-      temp = f"{headers.TextColours.BG_BLUE}".format(withwhite)
+      temp = f"{headers.TextColours.BG_BLUE}".format(text)
     elif cell == "H":
-      temp = f"{headers.TextColours.BG_GREEN}".format(withwhite)
+      temp = f"{headers.TextColours.BG_GREEN}".format(text)
     elif cell == "X":
-      temp = f"{headers.TextColours.BG_RED}".format(withwhite)
+      temp = f"{headers.TextColours.BG_RED}".format(text)
     else:
-      temp = f"{headers.TextColours.BG_YELLOW}".format(withwhite)
+      temp = f"{headers.TextColours.BG_YELLOW}".format(text)
     return temp
 
   def formatBoard(board):
@@ -23,10 +23,10 @@ class DisplayInfo():
     for row in s:
       if two == True:
         for i in range(1, len(row)):
-          withwhite = " " + row[i] + " "
-          temp = DisplayInfo.getColour(row[i], withwhite)
+          withWhite = " " + row[i] + " "
+          temp = DisplayInfo.getColour(row[i], withWhite)
           if (i == 0):
-            temp = withwhite
+            temp = withWhite
           row[i] = temp
       else:
         for i in range (1, len(row)):
@@ -84,22 +84,22 @@ class DisplayInfo():
     status = DisplayInfo.addWhiteSpace(statusmax, "Status")
     
     print(f"{headers.TextColours.BOLD_UNDERLINE}".format("\nBoat Info:\n"))
-    DisplayInfo.prt_width(f"{headers.TextColours.BOLD}".format(id), idmax)
-    DisplayInfo.prt_width(f"{headers.TextColours.BOLD}".format(name), namemax)
-    DisplayInfo.prt_width(f"{headers.TextColours.BOLD}".format(length), lengthmax)
-    DisplayInfo.prt_width(f"{headers.TextColours.BOLD}".format(damage), damagemax)
-    DisplayInfo.prt_width(f"{headers.TextColours.BOLD}".format(status), statusmax)
-    DisplayInfo.prt_width('\n', 0)
+    DisplayInfo.makeWidth(f"{headers.TextColours.BOLD}".format(id), idmax)
+    DisplayInfo.makeWidth(f"{headers.TextColours.BOLD}".format(name), namemax)
+    DisplayInfo.makeWidth(f"{headers.TextColours.BOLD}".format(length), lengthmax)
+    DisplayInfo.makeWidth(f"{headers.TextColours.BOLD}".format(damage), damagemax)
+    DisplayInfo.makeWidth(f"{headers.TextColours.BOLD}".format(status), statusmax)
+    DisplayInfo.makeWidth('\n', 0)
 
     for boat in player.boats:
-      DisplayInfo.prt_width(boat.ID, idmax)
-      DisplayInfo.prt_width(boat.name, namemax)
-      DisplayInfo.prt_width(str(boat.length), lengthmax)
-      DisplayInfo.prt_width(str(boat.damage), damagemax)
-      DisplayInfo.prt_width(str(boat.status), statusmax)
-      DisplayInfo.prt_width('\n', 0)
+      DisplayInfo.makeWidth(boat.ID, idmax)
+      DisplayInfo.makeWidth(boat.name, namemax)
+      DisplayInfo.makeWidth(str(boat.length), lengthmax)
+      DisplayInfo.makeWidth(str(boat.damage), damagemax)
+      DisplayInfo.makeWidth(str(boat.status), statusmax)
+      DisplayInfo.makeWidth('\n', 0)
     
-  def prt_width(str, width):
+  def makeWidth(str, width):
       sys.stdout.write('| ' + str + ' '*(width-len(str)))
       sys.stdout.flush()
   

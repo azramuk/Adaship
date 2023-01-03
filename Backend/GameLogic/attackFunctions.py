@@ -7,27 +7,31 @@ import UI.headers as headers
 
 
 class Attack():
+
+  def displayTurn(currentPlayer):
+    os.system('clear')
+    print(f"{headers.TextColours.YELLOW}".format(currentPlayer.name.strip()+"'s turn\n\n"),  f"{headers.TextColours.BOLD}".format(ind) + f"{headers.TextColours.BOLD}".format(" out of ") + f"{headers.TextColours.BOLD}".format(tries))
+    showInfo.DisplayInfo.getBoard(currentPlayer, "both")
+    showInfo.DisplayInfo.getBoatInfo(currentPlayer)
+  
   def takeTurn(currentPlayer, nextPlayer, comTurn, salvo):
+    global tries
+    global ind
+    ind = 1
     tries = 1 # default shots is 1 if not salvo mode
     if (salvo == True):
       tries = Attack.getTurns(currentPlayer)
-      
     for i in range(1, tries+1):   
+      Attack.displayTurn(currentPlayer)
       if (comTurn): # automatically takes shot for computer
-        os.system('clear')
-        print(f"{headers.TextColours.YELLOW}".format("\nComputer's turn\n\n"), f"{headers.TextColours.BOLD}".format(i) + f"{headers.TextColours.BOLD}".format(" out of ") + f"{headers.TextColours.BOLD}".format(tries) )
-        showInfo.DisplayInfo.getBoard(currentPlayer, "both")
-        showInfo.DisplayInfo.getBoatInfo(currentPlayer)
         Attack.takeShot(True, currentPlayer, nextPlayer)
       else:
-        print(f"{headers.TextColours.YELLOW}".format(currentPlayer.name.strip()+"'s turn\n\n"),  f"{headers.TextColours.BOLD}".format(i) + f"{headers.TextColours.BOLD}".format(" out of ") + f"{headers.TextColours.BOLD}".format(tries))
-        showInfo.DisplayInfo.getBoard(currentPlayer, "both")
-        showInfo.DisplayInfo.getBoatInfo(currentPlayer)
         menu.turnMenu(currentPlayer, nextPlayer) # calls menu for user taking shots
       if (Attack.checkGameOver(nextPlayer) == True):
         return True
         
       os.system('clear')
+      ind+= 1
     input(f"{headers.TextColours.MAGENTA}".format("Press enter to continue to next player"))
     return False
   
@@ -51,10 +55,12 @@ class Attack():
     if (player2.gameBoard[y][x] == "0"):
       player1.miss += 1
       player1.targetBoard[y][x] = "X"
+      Attack.displayTurn(player1)
       print("\nShot was a " + f"{headers.TextColours.RED}".format("MISS\n"))
     else:
-      print("\nShot was a " + f"{headers.TextColours.GREEN}".format("HIT\n"))
       player1.targetBoard[y][x] = "H"
+      Attack.displayTurn(player1)
+      print("\nShot was a " + f"{headers.TextColours.GREEN}".format("HIT\n"))
       player1.hit += 1
       id = player2.gameBoard[y][x]
       for i in range(len(player2.boats)):
