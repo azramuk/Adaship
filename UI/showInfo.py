@@ -30,7 +30,10 @@ class DisplayInfo():
           row[i] = temp
       else:
         for i in range (1, len(row)):
-          withwhite = " " + row[i] + " "
+          if len(row[i]) == 1:
+            withwhite = " " + row[i] + " "
+          else:
+            withwhite = row[i]+ " "
           temp = withwhite
           row[i] = temp
       table += [fmt.format(*row)]

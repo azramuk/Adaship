@@ -1,4 +1,3 @@
-
 import os
 import Backend.GameConfig.boardBoatConfig as boardBoatConfig
 import Backend.GameConfig.readConfigFile as readConfigFile
