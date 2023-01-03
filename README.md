@@ -20,11 +20,14 @@ For the overall solution, it has been broken down into the main components of th
   - update ship status
 - Check game over
 
-![UML1](/UML1.drawio.png "UML1")
-As shown in the diagram above, the main components of this game are the boards, ships and the game play. 
 
-My approach to this, was to work using a bottom-up design for the overall game and focused on each individual component and method before building them together. However for each component, it was more of a top-down design as I broke methods down as I went along.
-I started with creating empty boards, then moved on to creating an array of boats to store all the boat information which would then be used in the boat methods. By focussing on individual methods, it allowed me to identify where code could be reused amongst different tasks so I could further break them down.
+#### Overall Solution
+![UML1](/UML1.drawio.png "UML1")
+<br />
+
+As shown in the diagram above, the main components of this game are the boards, ships and the game play. This was how I broke the game down initially in terms of what to focus development on. My overall approach was therefore a bottom-up design since I focused on building each component and methods before building all the main objects together. However, for each object, I used more of a top-down approach as I took the overall object and slowly broke it down into methods and classes as I went along. In terms of my approach to quality, I refactored code after getting the logic to work, by identifying repeated parts of code and breaking them into reusable functions.
+
+The overall problem was decomposed into singular stages that would happen in a sequence which is how I created my 'epic' style task as listed below.
 
 The most difficult thing about creating 'epic' style tasks was the fact that some tasks overlapped with others if they were too vague. For example user placing boats overlapped with computer placing boats as it could just reuse the auto place all boats function.
 
@@ -52,18 +55,26 @@ The most difficult thing about creating 'epic' style tasks was the fact that som
 
 
 
-e. Initial object-oriented design ideas and planned phased breakdown into smaller tasks (linked to 1d).
+### Initial object-oriented design ideas and planned phased breakdown into smaller tasks
 
-having all validation in one class as used in multiple places
-player class and computer class so computer can't use player methods
-auto function class used by both player and computer
-encapsulation for config file so can't be changed later on, use setters and getters for board size
-making board class and boat class to keep states of each respectively 
+Initially I decided on having classes for methods that would be related to each stage in the game. For example:
 
-break down by versions and then by tasks - open file, read contents, configure boards etc, worked on player workflow then computer, manual then auto, merging of reused code for auto and making com and user one class
+- Having a class for methods to do with placing ships on the board. 
+- Having all validation in one class as used in multiple places
+- Seperate player and computer class
+- Automatic functions
+- Encapsulation for reading the configuration file
+  - Use setters and getters
+- Board and boat classes
+
+To break it into smaller tasks, I decided to work on game methods by versions of the game and then by tasks. I worked on the player workflow first and then the computer workflow, same with working on manual (user input) functions before automatic ones, and adding validation after.
+
 
 
 3. Development – 15%
+
+I started with creating empty boards, then moved on to creating an array of boats to store all the boat information which would then be used in the boat methods. By focussing on individual methods, it allowed me to identify where code could be reused amongst different tasks so I could further break them down.
+
 a. Adoption and use of ‘good’ standards (linked to 1a, 1b, 1c).
 
 code reusability, private attributes
