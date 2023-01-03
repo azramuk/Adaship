@@ -266,6 +266,17 @@ def boatsArray():
 ```
 Changed to:
 ```
+def boatsArray():
+    boats = readConfigFile.ConfigFile.getBoats(adaship.adaship)
+    boatsList = []
+    
+    for i in range(len(boats)):
+      boatsList.append(boatInfo.Boat(boats[i][0][0],boats[i][0],boats[i][1])) # array of boat objects
+      
+    return boatsList
+```
+Where the `Boat` object is:
+```
 class Boat():
   def __init__(self, ID, name, length):
     self.ID = ID
@@ -275,39 +286,136 @@ class Boat():
     self.status = "NOT DEPLOYED"
 ```
 
-b) reading config file singleton
-no literal uses of max length on display
-encapsulation per class - place ships, utils being used in different places, modularisation into ui and service although ui could have been better as used formatting in service for input prompts
-
-c) best bits: difference between initial and current place ships class
-singleton method
-
-d) boats array vs cklass - index messy and not
-improved design with ui improvements
-refactoring code so salvo and original can use same method
-
-e)
-regex
-places i could have split ui and service better
-exception handling for invalid input 
-mines version
-want to use polymorphism
+I used some 'advanced' programming principles throughout my code for example, below is how I used a singleton method for reading the config file so that it could not be changed later. This meant the the base game attributes for configuration wuld have the same attributes all the way through. I also made use of private attrubutes which can be identified by the two underscores: `__`
+```
+class ConfigFile():
+  def __init__(self):
+    self.__file = None
+    self.__width=0  # private instance attribute
+    self.__height=0 # private instance attribute - can only be changed from class function 'setUserDimensions'
+    self.__boats=[]
+    self.readConfigFile() #automatically sets based on file
 
 
-3. Evaluation (academic standard: distinction level detail: section required for distinction) – 10%
-a. Analysis with embedded examples of key code refactoring, reuse, smells.
+  #only opens and reads file once as controlled by None check making this a singleton function
+  def readConfigFile(self):
+    if self.__file is None:
+      f = open("adaship_config.ini", "r")
+      self.__file = f.readlines()
+    count = 0
 
+    for line in self.__file:
+      count += 1
+      type = ""
+      i = 0
+      while (i < len(line) and line[i] != ":"):
+        type = type + line[i].lower()
+        i += 1
+    
+      if (type == "board"):
+        dimensions = line[i+1:].strip()
+        width = int(dimensions.split("x")[0])
+        height = int(dimensions.split("x")[1])
+        # store width and height as attribute
+        self.__width = width
+        self.__height = height
+      elif (type == "boat"):
+        # add each identification of a boat to an array
+        boat = line[i+1:].strip().split(",")
+        boat[-1] = int(boat[-1])
+        self.__boats.append(boat)
+```
 
+Another advanced programming principle I made use of was encapsulation which was showcased through various classes. Each class had specific methods and attributes that were only used in those classes for example the `PlaceShips()` class which is shown in ![placeShips](/Backend/GameLogic/placeShips.py "placeShips") as well as a snapshot below:
+```
+class PlaceShips():
 
+  def placeShip(auto, player, boatLen, boatID):
+    validRange = False
+    validState = False
+    while (validRange == False or validState == False):
+      if auto:
+        # if automatically placing ship gets random coordinates and orientation
+        orientation = utils.Utils.getRandomOrientation()
+        if (orientation == "V"):
+          #check if space to place vertically
+          space = validation.Validation.VerSpace(player.gameBoard, boatLen)
+          if space == False:
+            orientation = "H"
+        else:
+          #check if space to place horizontally
+          space = validation.Validation.HorSpace(player.gameBoard, boatLen)
+          if space == False:
+            orientation = "V"
+        x, y = utils.Utils.getRandomCoordinates(player.gameBoard)
+      else:
+        # get user inputs
+        orientation = utils.Utils.getOrientation()
+        x, y = utils.Utils.getCoordinates(player.gameBoard)
+      validRange = validation.Validation.checkBoardRange(player.gameBoard, x, y, orientation, boatLen)    
+      
+      if (validRange):
+          validState = validation.Validation.checkBoardState(player.gameBoard, x, y, orientation, boatLen)
+          if (validState):
+            #if everything is valid then place the ship
+            player.gameBoard = PlaceShips.place(player.gameBoard, x, y, orientation, boatLen, boatID)
+            
 
-b. Implementation and effective use of ‘advanced’ programming principles (with examples).
+  def oneShip(auto, player):
+    #if only one ship being placed, don't need a for loop
+    os.system('clear')
+    showInfo.DisplayInfo.getBoard(player, "game")
+    boat = PlaceShips.getUserBoat(player)
+    boatLen = boat.length
+    boatID = boat.ID
+    boatStatus = boat.status
+    if (boatStatus == "DEPLOYED"):
+      PlaceShips.removeShip(player.gameBoard, boatID)
+    PlaceShips.placeShip(auto, player, boatLen, boatID)
+    boat.status = "DEPLOYED"
+    
+    
+  def autoPlaceAvailable(player):
+    for i in range(len(player.boats)):
+      boat = player.boats[i]
+      if (boat.status == "NOT DEPLOYED"):
+        # checks whether ship is not already placed
+        boatLen = boat.length
+        boatID = boat.ID
+        PlaceShips.placeShip(True, player, boatLen, boatID)
+        boat.status = "DEPLOYED"
 
+  
+  def autoPlaceAll(player):
+    # places all ships regardless of already placed so clears board and status
+    PlaceShips.resetBoard(player)
+    for i in range(len(player.boats)):
+      boat = player.boats[i]
+      boatLen = boat.length
+      boatID = boat.ID
+      
+      PlaceShips.placeShip(True, player, boatLen, boatID)
+      boat.status = "DEPLOYED"
+      ...
+```
+I used the concept of encapsulation in various places as well as modularisation since I grouped my modules by UI and Service although I think I could have made better use of it with UI formatting as some UI prompts were in Service files.
+<br />
+My best feature in my project was the use of a seperate boat class that encapsulated the attributes per boat:
+```
+class Boat():
+  def __init__(self, ID, name, length):
+    self.ID = ID
+    self.name = name
+    self.length = length
+    self.damage = 0
+    self.status = "NOT DEPLOYED"
+```
+It allowed my code to be cleaner and more understandable throughout when accessing different attributes of the boat. It was also my best improved algorith and made the overall design of my project much cleaner.
 
-c. Features showcase and embedded innovations (with examples) - opportunity to ‘highlight’ best bits.
+The improved design with the UI in the final stages really impacted the overall project in a positive light as the improved user experience made the overall project more user-friendly.
 
-
-
-d. Improved algorithms – research, design, implementation, and tested confirmation (with examples).
-
-
-e. Reflective review, opportunities to improve and continued professional development.
+I learned a lot throughout this project even up until my review of my own code as one thing that I have reflected on which I wish I could have done better was:
+- The use of regex for coordinate input instead of seperate inputs for the X and Y coordinates
+- Exception handling for invalid input through better and more thorough unit testing instead of just console input
+- Attempting the mines version if I didn't have the time constraint or looking at the overall solution from a more top-down perspective to incorporate it
+- Use of polymorphism for cleaner code as I didn't attempt to use it
