@@ -45,7 +45,7 @@ class Utils():
 
 
   def getOrientation():
-    orientation = input(f"{headers.TextColours.MAGENTA}".format("Place ship veritcally or horizontally? (V/H): ").upper())
+    orientation = input(f"{headers.TextColours.MAGENTA}".format("Place ship veritcally or horizontally? (V/H): ")).upper()
     while (orientation != "V" and orientation !="H"):
-      orientation = input(f"{headers.TextColours.BG_RED}".format("Please enter valid choice: ").upper())
+      orientation = input(f"{headers.TextColours.BG_RED}".format("Please enter valid choice: ")).upper()
     return orientation

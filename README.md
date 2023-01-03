@@ -21,6 +21,7 @@ For the overall solution, it has been broken down into the main components of th
 - Check game over
 
 // insert uml diagram
+![UML1](/relative/path/to/img.jpg?raw=true "UML1")
 As shown in the diagram above, the main components of this game are the boards, ships and the game play. 
 
 My approach to this, was to work using a bottom-up design for the overall game and focused on each individual component and method before building them together. However for each component, it was more of a top-down design as I broke methods down as I went along.
