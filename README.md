@@ -88,11 +88,14 @@ I started by working on creating game boards using 2D arrays. Initially I tried 
 
 ### Phase 3 - Placing Ships
 In phase 3 I focused on configuring the game boards with ship placement. I focused on the user placement of ships first as I knew I would be able to reuse the code for automatically placing all the ships when configuring for the computer, automatic ship placement. I made a new class with different methods of placing the ships according to the menu options. I also ensured that each method had a single function by breaking out asking for user inputs into multiple functions. It was here that I identified the reusability of some of the functions such as getting user inputs for coordinates.
+
 I also added in validation checks for user input here which was a seperate class too as I would be using this in multiple places and so followed the practice of encapsulation.
+
 I asked for user coordinates of X and Y seperately, however on hindsight I could have used regex to get coordinates as one.
 
 ### Phase 4 - Guessing Opponent's Ships
 Phase 4 consisted of taking shots and returning whether it was a hit or miss. Again for this, I focused on the user options first as the Computer would be reusing the automatic function. I first focused on the functionality before the concept of taking and switching turns. One thing I found was an obstacle was identifying if the turn was the computers or if it was a player. To overcome this, I added a name attribute to the player class so that it would be easy to identify. I tested each function of placing ships with edge cases and wrong input. I found that for auto placing, there may be only one orientation that would work at times and so I added checks which helped cut down the time to find where the space on the board is instead of continuously generating a new orientation and coordinates.
+
 I was able to reuse validation from placing ships here for the guesses.
 
 ### Phase 5 - Major Code Refactor
@@ -116,7 +119,7 @@ In terms of testing, I tested each individual function when completing the code 
 
 ## Evaluation
 
-Below is an example of how I refactored my code from having a seperate class for Player and Computer, and how I refactored it to use the same structure. I also seperated out the UI methods which were also reused in each class initially, so that the class methods were more specialised to the object.
+- Below is an example of how I refactored my code from having a seperate class for Player and Computer, and how I refactored it to use the same structure. I also seperated out the UI methods which were also reused in each class initially, so that the class methods were more specialised to the object.
 
 ```
 # COMPUTER CLASS
@@ -250,7 +253,7 @@ class Player():
     showInfo.DisplayInfo.getBoatInfo(self)
 ```
 
-Another bit of code that I heavily refactored, was the fact that I initially was storing boat information in an array of arrays and accessed the informationm through indexing, but instead changed it to an array of boat objects so that I oculd access the attributes with names which made my code clearer as shown below.
+- Another bit of code that I heavily refactored, was the fact that I initially was storing boat information in an array of arrays and accessed the informationm through indexing, but instead changed it to an array of boat objects so that I oculd access the attributes with names which made my code clearer as shown below.
 ```
 ...
 def boatsArray():
@@ -286,7 +289,7 @@ class Boat():
     self.status = "NOT DEPLOYED"
 ```
 
-I used some 'advanced' programming principles throughout my code for example, below is how I used a singleton method for reading the config file so that it could not be changed later. This meant the the base game attributes for configuration wuld have the same attributes all the way through. I also made use of private attrubutes which can be identified by the two underscores: `__`
+- I used some 'advanced' programming principles throughout my code for example, below is how I used a singleton method for reading the config file so that it could not be changed later. This meant the the base game attributes for configuration wuld have the same attributes all the way through. I also made use of private attrubutes which can be identified by the two underscores: `__`
 ```
 class ConfigFile():
   def __init__(self):
@@ -326,7 +329,7 @@ class ConfigFile():
         self.__boats.append(boat)
 ```
 
-Another advanced programming principle I made use of was encapsulation which was showcased through various classes. Each class had specific methods and attributes that were only used in those classes for example the `PlaceShips()` class which is shown in ![placeShips](/Backend/GameLogic/placeShips.py "placeShips") as well as a snapshot below:
+- Another advanced programming principle I made use of was encapsulation which was showcased through various classes. Each class had specific methods and attributes that were only used in those classes for example the `PlaceShips()` class which is shown in ![placeShips](/Backend/GameLogic/placeShips.py "placeShips") as well as a snapshot below:
 ```
 class PlaceShips():
 
@@ -400,7 +403,7 @@ class PlaceShips():
 ```
 I used the concept of encapsulation in various places as well as modularisation since I grouped my modules by UI and Service although I think I could have made better use of it with UI formatting as some UI prompts were in Service files.
 <br />
-My best feature in my project was the use of a seperate boat class that encapsulated the attributes per boat:
+- My best feature in my project was the use of a seperate boat class that encapsulated the attributes per boat:
 ```
 class Boat():
   def __init__(self, ID, name, length):
