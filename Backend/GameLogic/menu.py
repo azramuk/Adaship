@@ -10,7 +10,7 @@ import UI.headers as headers
 
 def menu(): #call this first
   validChoice = False
-  print(f"{headers.TextColours.YELLOW}".format("Adaship\n\n"), f"{headers.TextColours.BLACK}".format("Adaship is a battleship-like game where a each user places their own ships on a grid and then guesses their opponents placement.\n The original version consists of one shot per turn whereas the Salvo version allows each user to take as many shots as ships of their own that haven't been sunk.\n\n"))
+  print(f"{headers.TextColours.YELLOW}".format("Adaship\n\n"), f"{headers.TextColours.BLACK}".format("Adaship is a battleship-like game where a each user places their own ships on a grid and then guesses their opponents placement.\n If a player guesses a coordinate of the opponent’s ship, it counts as a ‘hit’. The end goal is to sink all of the opponent's ships by correctly guessing all of the coordinates on which the ships are placed. Adaship has four game modes, including a basic version where each player only gets one attack per turn, and a salvo version where each player can attack as many times as they have remaining ships per turn. Both versions can be played by one player against the computer or by two players against each other. \n\n"))
   print(f"{headers.TextColours.YELLOW}".format("Menu:\n"), "1. Player vs Computer \n 2. Two player game \n 3. Player vs Computer (Salvo version) \n 4. Two player game (Salvo version) \n 0. Quit \n\n", f"{headers.TextColours.MAGENTA}".format("Enter choice: "))
   while (validChoice == False):
     try:

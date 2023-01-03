@@ -27,7 +27,7 @@ class GameLogic():
           print(f"{headers.TextColours.GREEN}".format(playerConfig.player2.name + " wins"))
         else:
           print(f"{headers.TextColours.GREEN}".format(playerConfig.player1.name + " wins"))
-
+    
   
   def __switchCom(comTurn):
     # if one player game, switches comTurn to decide whether it is the computer's turn or not
