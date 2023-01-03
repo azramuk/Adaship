@@ -4,4 +4,4 @@ class Boat():
     self.name = name
     self.length = length
     self.damage = 0
-    self.status = 0
+    self.status = "NOT DEPLOYED"

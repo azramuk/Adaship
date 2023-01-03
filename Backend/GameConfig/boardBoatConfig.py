@@ -2,6 +2,7 @@ import Backend.GameConfig.adaship as adaship
 import Backend.GameConfig.readConfigFile as readConfigFile
 import Backend.GameLogic.validation as validation
 import Backend.GameLogic.boatInfo as boatInfo
+import UI.headers as headers
 
 
 class GameConfig():
@@ -13,8 +14,8 @@ class GameConfig():
   def ownBoardSize(): # function to get user input for board size
     num = False
     while (not num):
-      width = input("Enter width between 5 and 80: ")
-      height = input("Enter height between 5 and 80: ")
+      width = input(f"{headers.TextColours.MAGENTA}".format("Enter width between 5 and 80: "))
+      height = input(f"{headers.TextColours.MAGENTA}".format("Enter height between 5 and 80: "))
       try:
         width=int(width)
         height = int(height)
@@ -23,9 +24,9 @@ class GameConfig():
           num = True
           return (width, height)
         else:
-          print("\nBoard size not in range\n")
+          print(f"{headers.TextColours.BG_RED}".format("\nBoard size not in range\n"))
       except ValueError:
-        print("\nInput is not an integer\n")
+        print(f"{headers.TextColours.BG_RED}".format("\nInput is not an integer\n"))
         continue
 
   

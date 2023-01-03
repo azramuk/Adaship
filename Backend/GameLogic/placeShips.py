@@ -2,6 +2,7 @@ import os
 import UI.showInfo as showInfo
 import Backend.GameLogic.validation as validation
 import Backend.GameLogic.utils as utils
+import UI.headers as headers
 
 
 class PlaceShips():
@@ -45,21 +46,21 @@ class PlaceShips():
     boatLen = boat.length
     boatID = boat.ID
     boatStatus = boat.status
-    if (boatStatus == 1):
+    if (boatStatus == "DEPLOYED"):
       PlaceShips.removeShip(player.gameBoard, boatID)
     PlaceShips.placeShip(auto, player, boatLen, boatID)
-    boat.status = 1
+    boat.status = "DEPLOYED"
     
     
   def autoPlaceAvailable(player):
     for i in range(len(player.boats)):
       boat = player.boats[i]
-      if (boat.status == 0):
+      if (boat.status == "NOT DEPLOYED"):
         # checks whether ship is not already placed
         boatLen = boat.length
         boatID = boat.ID
         PlaceShips.placeShip(True, player, boatLen, boatID)
-        boat.status = 1
+        boat.status = "DEPLOYED"
 
   
   def autoPlaceAll(player):
@@ -71,15 +72,15 @@ class PlaceShips():
       boatID = boat.ID
       
       PlaceShips.placeShip(True, player, boatLen, boatID)
-      boat.status = 1
+      boat.status = "DEPLOYED"
       
   
   def resetBoard(player):
     for i in range(1, len(player.gameBoard)):
       for j in range (1, len(player.gameBoard[i])):
-        player.gameBoard[i][j] = 0
+        player.gameBoard[i][j] = "0"
     for i in range(len(player.boats)):
-      player.boats[i].status = 0
+      player.boats[i].status = "NOT DEPLOYED"
     #for each ship change status to not placed, go through board and make it back to 0
   
   def getUserBoat(player):
@@ -87,7 +88,7 @@ class PlaceShips():
     valid = False
     while (valid == False):
       showInfo.DisplayInfo.getBoatInfo(player)
-      print("\nEnter ID of boat: ")
+      print(f"{headers.TextColours.MAGENTA}".format("\nEnter ID of boat: "))
       id = input().upper()
       for i in range(len(player.boats)):
         if (id == player.boats[i].ID):
@@ -99,7 +100,7 @@ class PlaceShips():
     # checks whether all boats have been placed
     for i in range(len(player.boats)):
       boat = player.boats[i]
-      if (boat.status == 0):
+      if (boat.status == "NOT DEPLOYED"):
         return False
     return True
 
@@ -122,6 +123,6 @@ class PlaceShips():
     for i in range(1, len(board)):
       for j in range (1, len(board[i])):
         if (board[i][j] == id):
-          board[i][j] = 0
+          board[i][j] = "0"
 
   

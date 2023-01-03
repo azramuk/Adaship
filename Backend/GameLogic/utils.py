@@ -1,5 +1,6 @@
 import Backend.GameLogic.validation as validation
 import random
+import UI.headers as headers
 
 class Utils():
   
@@ -8,14 +9,14 @@ class Utils():
     while (coordsValid == False):
       inputValid = False
       while (inputValid == False):
-        x = input("\nEnter the x coordinate (e.g B): ")
-        y = input("Enter the y coordinate (e.g 2): ")
+        x = input(f"{headers.TextColours.MAGENTA}".format("\nEnter the x coordinate (e.g B): "))
+        y = input(f"{headers.TextColours.MAGENTA}".format("Enter the y coordinate (e.g 2): "))
         try:
           x = x.upper()
           y = int(y)
           inputValid = True
         except ValueError:
-          print("\nx coordinate must be a letter(s) and y coordinate must be an integer\n")
+          print(f"{headers.TextColours.BG_RED}".format("\nx coordinate must be a letter(s) and y coordinate must be an integer\n"))
           
       coordsValid = validation.Validation.checkCoordinates(board, x, y)
     return x,y
@@ -44,7 +45,7 @@ class Utils():
 
 
   def getOrientation():
-    orientation = input("Place ship veritcally or horizontally? (V/H): ").upper()
+    orientation = input(f"{headers.TextColours.MAGENTA}".format("Place ship veritcally or horizontally? (V/H): ").upper())
     while (orientation != "V" and orientation !="H"):
-      orientation = input("Please enter valid choice: ").upper()
+      orientation = input(f"{headers.TextColours.BG_RED}".format("Please enter valid choice: ").upper())
     return orientation

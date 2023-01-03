@@ -1,6 +1,7 @@
 import Backend.GameConfig.boardBoatConfig as boardBoatConfig
 import Backend.GameLogic.placeShips as placeShips
 import UI.showInfo as showInfo
+import UI.headers as headers
 
 class Player():
   def __init__(self):
@@ -15,6 +16,6 @@ class Player():
   def placeBoats(self):
     # method for computer placing ships
     placeShips.PlaceShips.autoPlaceAll(self)
-    print("Computer Game Board Configuration")
+    print(f"{headers.TextColours.YELLOW}".format("Computer Game Board Configuration"))
     showInfo.DisplayInfo.getBoard(self, "game")
     showInfo.DisplayInfo.getBoatInfo(self)

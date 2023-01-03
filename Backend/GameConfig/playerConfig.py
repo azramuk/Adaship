@@ -2,6 +2,7 @@ import os
 import Backend.GameLogic.menu as menu
 import Backend.GameLogic.gamePlay as gamePlay
 import Backend.GameLogic.playerInfo as playerInfo
+import UI.headers as headers
 
 
 class GameTypes():
@@ -20,7 +21,7 @@ class GameTypes():
       playerInfo.Player.placeBoats(player2)
     else:
       menu.placeBoatsMenu(player2)
-    input("\nPress enter to continue")
+    input(f"{headers.TextColours.MAGENTA}".format("\nPress enter to continue"))
 
   
   def playerVsCom():

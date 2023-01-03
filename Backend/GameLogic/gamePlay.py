@@ -1,6 +1,7 @@
 import os
 import Backend.GameConfig.playerConfig as playerConfig
 import Backend.GameLogic.attackFunctions as attackFunctions
+import UI.headers as headers
 
 
 class GameLogic():
@@ -23,9 +24,9 @@ class GameLogic():
   
       if (gameOver == True):
         if (turn == playerConfig.player1):
-          print(playerConfig.player2.name,"wins")
+          print(f"{headers.TextColours.GREEN}".format(playerConfig.player2.name + " wins"))
         else:
-          print(playerConfig.player1.name,"wins")
+          print(f"{headers.TextColours.GREEN}".format(playerConfig.player1.name + " wins"))
 
   
   def __switchCom(comTurn):

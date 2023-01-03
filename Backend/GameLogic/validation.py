@@ -12,7 +12,7 @@ class Validation():
     # checks if a tile is empty
     y = int(y)
     x = utils.Utils.getXIndex(board, x)
-    if(board[y][x] == "0" or board[y][x] == 0): #might need speech marks
+    if(board[y][x] == "0"):
       return True
     return False
 
@@ -46,12 +46,12 @@ class Validation():
     x = utils.Utils.getXIndex(board, x)
     if (orientation == "H"):
       for i in range(x, x+boatLen):
-        if (board[y][x] != "0" and board[y][x] != 0):
+        if (board[y][x] != "0"):
           return False
         x +=1
     else:
       for i in range(y, y+boatLen):
-        if (board[y][x] != "0" and board[y][x] != 0 ):
+        if (board[y][x] != "0"):
           return False
         y +=1
     return True
@@ -63,7 +63,7 @@ class Validation():
     for i in range(1, len(board)):
       empty = 0
       for j in range (1, len(board[i])):
-        if (board[i][j] == "0" or board[i][j] == 0):
+        if (board[i][j] == "0"):
           empty += 1
         else:
           empty = 0
@@ -78,7 +78,7 @@ class Validation():
     for i in range(1, len(board[0])):
       empty = 0
       for j in range (1, len(board)):
-        if board[j][i] == "0" or board[j][i] == 0:
+        if board[j][i] == "0":
           empty += 1
         else:
           empty = 0

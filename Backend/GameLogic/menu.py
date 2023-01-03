@@ -5,16 +5,17 @@ import UI.showInfo as showInfo
 import sys
 import os
 import Backend.GameLogic.attackFunctions as attackFunctions
+import UI.headers as headers
 
 
 def menu(): #call this first
   validChoice = False
-  print ("Menu: \n 1. Player vs Computer \n 2. Two player game \n 3. Player vs Computer (Salvo version) \n 4. Two player game (Salvo version) \n 0. Quit \n\nEnter choice: ")
+  print(f"{headers.TextColours.YELLOW}".format("Menu:\n"), "1. Player vs Computer \n 2. Two player game \n 3. Player vs Computer (Salvo version) \n 4. Two player game (Salvo version) \n 0. Quit \n\n", f"{headers.TextColours.MAGENTA}".format("Enter choice: "))
   while (validChoice == False):
     try:
       choice=int(input())
     except ValueError:
-      print("\nEnter a valid choice\n")
+      print(f"{headers.TextColours.BG_RED}".format("\nEnter a valid choice\n"))
       continue
   
     if (choice == 1):
@@ -35,28 +36,31 @@ def menu(): #call this first
       playerConfig.GameTypes.salvoPlayerVsPlayer()
     elif (choice == 0):
       validChoice = True
-      print("Exiting... goodbye!")
+      print(f"{headers.TextColours.BOLD}".format("Exiting... goodbye!"))
       sys.exit()
     else:
-      print("\nEnter a valid choice\n")
+      print(f"{headers.TextColours.BG_RED}".format("\nEnter a valid choice\n"))
 
 
 def placeBoatsMenu(player):
   cont = False # 6 not chosen
   while not(placeShips.PlaceShips.allBoatsPlaced(player) and cont):
     os.system('clear')
-    print(player.name, "Game Board Configuration")
+    nameTitle = player.name + " Game Board Configuration"
+    print(f"{headers.TextColours.YELLOW}".format(nameTitle))
     showInfo.DisplayInfo.getBoard(player, "game")
     showInfo.DisplayInfo.getBoatInfo(player)
-    print("\nBoard Setup Menu\n")
-    print("1. Select and Place a Ship\n2. Select and Auto-Place a Ship\n3. Auto-Place All Available Ships\n4. Auto-place All Ships\n5. Reset Board\n6. Ship Deloyments Confirmed - Select to Continue...\n\n0. Exit Setup\n\nEnter choice:")
+    if not(placeShips.PlaceShips.allBoatsPlaced(player)):
+      print(f"{headers.TextColours.YELLOW}".format("\nBoard Setup Menu:\n"), "1. Select and Place a Ship\n 2. Select and Auto-Place a Ship\n 3. Auto-Place All Available Ships\n 4. Auto-place All Ships\n 5. Reset Board\n", f"{headers.TextColours.BLACK}".format("6. Ship Deloyments Confirmed - Select to Continue..."), "\n\n 0. Exit Setup\n\n", f"{headers.TextColours.MAGENTA}".format("Enter choice:") )
+    else:
+      print(f"{headers.TextColours.YELLOW}".format("\nBoard Setup Menu:\n"), "1. Select and Place a Ship\n 2. Select and Auto-Place a Ship\n 3. Auto-Place All Available Ships\n 4. Auto-place All Ships\n 5. Reset Board\n", f"{headers.TextColours.GREEN}".format("6. Ship Deloyments Confirmed - Select to Continue..."), "\n\n 0. Exit Setup\n\n", f"{headers.TextColours.MAGENTA}".format("Enter choice:") )
 
     validChoice = False
     while (validChoice == False):
       try:
         choice = int(input())
       except ValueError:
-        print("\nEnter a valid choice\n")
+        print(f"{headers.TextColours.BG_RED}".format("\nEnter a valid choice\n"))
         continue
 
       if (choice == 1):
@@ -81,19 +85,19 @@ def placeBoatsMenu(player):
         validChoice = True
         sys.exit()
       elif (choice == 6 and not placeShips.PlaceShips.allBoatsPlaced(player)):
-        print("\nPlace all ships before continuing\n")
+        print(f"{headers.TextColours.BG_RED}".format("\nPlace all ships before continuing\n"))
       else:
-        print("\nEnter a valid choice\n")
+        print(f"{headers.TextColours.BG_RED}".format("\nEnter a valid choice\n"))
 
 
 def turnMenu(player, computer):
-  print("\nTurn menu:\n1. Torpedo (manual launch)\n2. Torpedo (auto launch)\n\n0. Quit\n\nEnter choice: ")
+  print(f"{headers.TextColours.YELLOW}".format("\nTurn menu:\n"), "1. Torpedo (manual launch)\n 2. Torpedo (auto launch)\n\n 0. Quit\n\n", f"{headers.TextColours.MAGENTA}".format("Enter choice:"))
   validChoice = False
   while (validChoice == False):
     try:
       choice = int(input())
     except ValueError:
-      print("\nEnter a valid choice\n")
+      print(f"{headers.TextColours.BG_RED}".format("\nEnter a valid choice\n"))
       continue
 
     if (choice == 1):
@@ -106,4 +110,4 @@ def turnMenu(player, computer):
       validChoice = True
       sys.exit()
     else:
-      print("\nEnter a valid choice\n")
+      print(f"{headers.TextColours.BG_RED}".format("\nEnter a valid choice\n"))
